@@ -18,10 +18,27 @@ public class Clinica {
     }
 
     public void adaugaAnimal(Animal animal) throws AnimaleIncompatibile {
-
+        boolean animalAdaugat = false;
+        
+        for (Camera camera : camere) {
+            if (camera.getTipAnimal().equals(animal.getClass())) {
+                camera.adaugaAnimal(animal);
+                animalAdaugat = true;
+                break;
             }
+        }
+        
+        if (!animalAdaugat) {
+            throw new AnimaleIncompatibile("Nu există cameră pentru acest tip de animal: " + 
+                animal.getClass().getSimpleName());
+        }
+    }
 
     public void afiseazaAnimale() {
+        for (Camera camera : camere) {
+            System.out.println("Camera " + camera.getNumar() + ":");
+            camera.afiseazaAnimale();
+            System.out.println(); // linie goală între camere
+        }
     }
 }
-
